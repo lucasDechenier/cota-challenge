@@ -1,0 +1,14 @@
+.flex-column{
+  flex-direction: column
+}
+.centralize{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@for $i from 0 through 20 {
+  .gap-#{$i}-px {
+    gap: #{$i}px;
+  }
+}

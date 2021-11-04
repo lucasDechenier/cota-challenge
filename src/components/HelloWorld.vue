@@ -1,5 +1,43 @@
 <template>
-  <v-chart class="chart" :option="option" />
+  <section class="bg-color">
+    <section class="d-flex col-md-12">
+      <v-text-field
+        flat
+        height="55"
+        solo
+        label="First name"
+      >
+      </v-text-field>
+
+      <v-text-field
+        flat
+        height="55"
+        solo
+        label="Last name"
+      >
+      </v-text-field>
+
+      <v-text-field
+        flat
+        height="55"
+        solo
+        label="Participation"
+      >
+      </v-text-field>
+      <section class="d-flex">
+        <v-btn
+          height="55"
+          min-width="155"
+          outlined
+          color="white"
+          class="send-btn"
+        >
+          send
+        </v-btn>
+      </section>
+    </section>
+    <v-chart class="chart" :option="option" />
+  </section>
 </template>
 
 <script>
@@ -54,5 +92,10 @@ export default {
 .chart {
   height: 400px;
 }
+.send-btn{
+  border-width: 2px !important;
+}
+.bg-color{
+  background-color: #00B8E2;
+}
 </style>
->>>>>>> Stashed changes
