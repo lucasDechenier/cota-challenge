@@ -1,11 +1,52 @@
 .flex-column{
   flex-direction: column
 }
+
 .centralize{
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
+.flex-grow{
+  flex-grow: 1;
+}
+
+.full-width{
+  width: 100%;
+}
+@each $p in center, start {
+  .text-#{$p}{
+    text-align: #{$p}
+  }
+} 
+
+// name, font-size line-height
+$title_1: ("title_1", 32px, 40px);
+$title_2: ("title_2", 16px, 24px);
+$base: ("base", 14px, 24px);
+
+$fonts: $title_1, $title_2, $base;
+@each $name, $font-size, $line-height in $fonts {
+  .#{$name} {
+    line-height: $line-height;
+    font-size: $font-size;
+    font-weight: 500;
+    &--semibold {
+      font-size: $font-size !important;
+      font-weight: 600 !important;
+    }
+    &--regular {
+      font-size: $font-size !important;
+      font-weight: 400 !important
+    }
+    &--light {
+      font-size: $font-size !important;
+      font-weight: 300 !important
+    }
+  }
+}
+
 
 @for $i from 0 through 20 {
   .gap-#{$i}-px {
