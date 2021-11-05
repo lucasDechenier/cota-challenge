@@ -60,10 +60,12 @@
 
 <script>
 import TableInfo from "../components/TableInfo.vue"
+import Breakpoints from '../mixins/Breakpoints.js'
 
 export default {
   name: "Home",
   components: {TableInfo},
+  mixins: [Breakpoints],
   data() {
     return {
       valid: false,
