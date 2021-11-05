@@ -1,7 +1,7 @@
 <template>
   <section class="d-flex flex-column align-center">
     <section class="centralize flex-grow bg-color full-width">
-      <v-form ref="form" v-model="valid" class="d-flex col-md-9 mt-12 mb-2 gap-20-px">
+      <v-form ref="form" v-model="valid" class="d-flex col-11 col-sm-7 col-md-11 col-xl-9 mt-12 mb-2 gap-20-px flex-grow" :class="smAndDown ?'flex-column mb-5 py-7' : ''">
         <v-text-field
           v-model="firstName"
           :rules="firstNameRules"
@@ -45,14 +45,18 @@
         </section>
       </v-form>
     </section>
-    <section class="col-md-9 d-flex gap-8-px text-center flex-column mt-10 mb-10">
-      <span class="title_1--semibold">DATA</span>
-      <span class="mb-10 base--light">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-      <div class="d-flex">
-        <div class="d-flex flex-column flex-grow mr-15 justify-center">
-          <table-info :infos="dataInfo"></table-info>
+    <section class="col-11 col-sm-7 col-md-11 col-xl-9 d-flex gap-8-px text-center flex-column mt-10 mb-10">
+      <div class="d-flex flex-column">
+        <div class="title_1--semibold mb-4">DATA</div>
+        <div class=" base--light">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+      </div>
+      <div class="d-flex" :class="smAndDown ?'flex-column' : ''">
+        <div class="d-flex flex-column flex-grow justify-center" :class="smAndDown ?'' : 'mr-15'">
+          <table-info class="d-flex" :infos="dataInfo"></table-info>
         </div>
-        <v-chart class="chart item2" :option="option" />
+        <div :class="smAndDown ?'centralize' : ''">
+          <v-chart ref="chart" :class="smAndDown ?'chart-sm teste' : 'chart'" :option="option" />
+        </div>
       </div>
     </section>
   </section>
@@ -87,19 +91,23 @@ export default {
         formatter: '{b}: {d}%'
         },
         legend: {
+          textStyle: {
+            overflow: 'break'
+          },
           type: 'scroll',
           orient: 'vertical',
-          left: '70%',
-          top: 'center',
-          itemWidth: 25,
-          itemHeight: 25,
+          right: 10,
+          top: "18%",
+          bottom: 20,
+          itemWidth: 35,
+          itemHeight: 35,
           itemGap: 25,
         },
         series: [
           {
             type: 'pie',
-            radius: ['40%', '70%'],
-            center: ['50%', '43%'],
+            radius: ['35%', '70%'],
+            center: ['40%', '50%'],
             avoidLabelOverlap: false,
             itemStyle: {
               borderColor: '#fff',
@@ -112,8 +120,8 @@ export default {
               show: false
             },
             data: [],
-            width: "80%",
-            height: "120%"
+            width: "100%",
+            height: "100%"
           },
         ]
       }
@@ -122,6 +130,11 @@ export default {
   created(){
     /* Simula uma requisição a um serviço, quando o componente é criado, carrega as informações */
     this.load()
+  },
+  mounted(){
+    if(this.smAndDown){
+      this.chartSmAndDown()
+    }
   },
   computed: {
     dataInfo(){
@@ -139,6 +152,24 @@ export default {
     }
   },
   methods: {
+    chartSmAndDown(){
+      this.option.legend.itemWidth = 15
+      this.option.legend.itemHeight = 15
+      this.option.legend.itemGap = 15
+      this.option.legend.right = 10
+      this.option.legend.top = 30
+      this.option.legend.orient = 'horizontal'
+      this.option.series[0].center = ['50%', '50%']
+    },
+    chartSmAndUp(){
+      this.option.legend.itemWidth = 35
+      this.option.legend.itemHeight = 35
+      this.option.legend.itemGap = 25
+      this.option.legend.right = 10
+      this.option.legend.top = "18%"
+      this.option.legend.orient = 'vertical'
+      this.option.series[0].center = ['40%', '50%']
+    },
     load(){
       this.option.series[0].data = [
         { value: 5, name: 'Carlos Moura' },
@@ -149,6 +180,7 @@ export default {
       ]
     },
     add(){
+      this.$refs.chart.resize()
       this.$refs.form.validate()
       if(this.valid){
         let fullName = this.firstName + " " + this.lastName
@@ -159,15 +191,32 @@ export default {
         this.$refs.form.reset()
       }
     }
+  },
+  watch: {
+    smAndDown: async function (val){
+      if(val){
+        await this.chartSmAndDown()
+      }
+      else{
+        await this.chartSmAndUp()
+      }
+      this.$refs.chart.resize()
+    }
   }
 };
 </script>
 
 <style scoped>
-.chart {
-  height: 300px;
-  width: 450px;
+.chart-sm{
+  height: 400px;
+  width: 300px;
 }
+
+.chart {
+  height: 450px;
+  width: 600px;
+}
+
 .send-btn{
   border-width: 2px !important;
 }
