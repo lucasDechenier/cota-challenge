@@ -180,7 +180,6 @@ export default {
       ]
     },
     add(){
-      this.$refs.chart.resize()
       this.$refs.form.validate()
       if(this.valid){
         let fullName = this.firstName + " " + this.lastName
