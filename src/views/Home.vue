@@ -3,6 +3,7 @@
     <section class="centralize flex-grow bg-color full-width">
       <v-form ref="form" v-model="valid" class="d-flex col-11 col-sm-7 col-md-11 col-xl-9 mt-12 mb-2 gap-20-px flex-grow" :class="smAndDown ?'flex-column mb-5 py-7' : ''">
         <v-text-field
+          data-cy="first-name"
           v-model="firstName"
           :rules="firstNameRules"
           flat
@@ -13,6 +14,7 @@
         </v-text-field>
 
         <v-text-field
+          data-cy="last-name"
           v-model="lastName"
           :rules="lastNameRules"
           flat
@@ -23,6 +25,7 @@
         </v-text-field>
 
         <v-text-field
+          data-cy="participation"
           v-model="participation"
           :rules="participationRules"
           flat
@@ -33,6 +36,7 @@
         </v-text-field>
         <section class="d-flex">
           <v-btn
+            data-cy="send"
             @click="add"
             height="55"
             min-width="155"
